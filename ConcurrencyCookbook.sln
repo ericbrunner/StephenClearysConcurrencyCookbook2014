@@ -1,0 +1,54 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2. Async Basics", "2. Async Basics", "{B8DB9DF0-6966-45C8-B940-A0745DC3AAFB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3. Parallel Basics", "3. Parallel Basics", "{BA28345D-ED0D-4BA3-8B2A-55155BE27C90}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4. Dataflow Basics", "4. Dataflow Basics", "{0FBC7628-9D04-4608-A634-300D52D757CB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "8. Collections", "8. Collections", "{37F60EC3-DD65-497F-9624-A7E17343A994}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "9. Cancellation", "9. Cancellation", "{151E6C71-11EF-4567-8D0B-A5899EC0DA8E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "11. Synchronization", "11. Synchronization", "{50945504-EC40-406B-BF13-30FBEE4D3EA8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "12. Scheduling", "12. Scheduling", "{85CD3558-0021-4F1C-9826-8437D6F2AAC5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2.1 Pausing for a Period of Time", "2.1 Pausing for a Period of Time", "{7DE77FC6-7070-47F9-94BE-E8C07195217B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskDelayAndRetry", "TaskDelayAndRetry\TaskDelayAndRetry.csproj", "{01A83CCF-2D2C-44FD-9259-43A1769B7217}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskDelayAndRetry.Tests", "TaskDelayAndRetry.Tests\TaskDelayAndRetry.Tests.csproj", "{80001992-823A-4CF4-B24C-F8836806D9BD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{123D9691-E22E-4BEB-A8CB-0D85EC46D9EB}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\packages.config = .nuget\packages.config
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{01A83CCF-2D2C-44FD-9259-43A1769B7217}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{01A83CCF-2D2C-44FD-9259-43A1769B7217}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{01A83CCF-2D2C-44FD-9259-43A1769B7217}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{01A83CCF-2D2C-44FD-9259-43A1769B7217}.Release|Any CPU.Build.0 = Release|Any CPU
+		{80001992-823A-4CF4-B24C-F8836806D9BD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{80001992-823A-4CF4-B24C-F8836806D9BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{80001992-823A-4CF4-B24C-F8836806D9BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{80001992-823A-4CF4-B24C-F8836806D9BD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{7DE77FC6-7070-47F9-94BE-E8C07195217B} = {B8DB9DF0-6966-45C8-B940-A0745DC3AAFB}
+		{01A83CCF-2D2C-44FD-9259-43A1769B7217} = {7DE77FC6-7070-47F9-94BE-E8C07195217B}
+		{80001992-823A-4CF4-B24C-F8836806D9BD} = {7DE77FC6-7070-47F9-94BE-E8C07195217B}
+	EndGlobalSection
+EndGlobal
