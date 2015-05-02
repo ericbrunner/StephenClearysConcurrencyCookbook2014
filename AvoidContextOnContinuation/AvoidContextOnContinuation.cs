@@ -7,8 +7,16 @@ using System.Threading.Tasks;
 
 namespace AvoidContextOnContinuation
 {
+    /// <summary>
+    /// Shows samples from Chapter 2.6.
+    /// </summary>
     public class AvoidContextOnContinuation
     {
+        /// <summary>
+        /// This method resumes its inner task continuation on the 
+        /// SynchronizationContext (on the same Thread in that Context).
+        /// </summary>
+        /// <returns></returns>
         public static async Task<bool> ResumeOnContextAsync()
         {
             var synchronizationContextBefore = SynchronizationContext.Current;
@@ -42,6 +50,11 @@ namespace AvoidContextOnContinuation
                    (managedThreadIdAfterBefore == managedThreadIdAfter);
         }
 
+        /// <summary>
+        /// This method continues on a new ThreadPool Thread (not on the
+        /// SynchronizationContext)
+        /// </summary>
+        /// <returns></returns>
         public static async Task<bool> ResumeWhitoutContextAsync()
         {
             var synchronizationContextBefore = SynchronizationContext.Current;
