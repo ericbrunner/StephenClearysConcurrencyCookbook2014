@@ -66,5 +66,27 @@ namespace ParallelProcessingOfData
 
             return parallelLoopResult;
         }
+
+        public static ParallelLoopResult RotateMatrices(IEnumerable<IMatrix> matrices, float degree, CancellationToken token)
+        {
+            ParallelLoopResult parallelLoopResult =
+                Parallel.ForEach(matrices,
+                    new ParallelOptions { CancellationToken = token },
+                    (matrix, state, index) =>
+                    {
+                        // simulate a bit of CPU-Bound processing time
+                        matrix.Rotate(degree);
+
+                        Thread.Sleep(500);
+
+                        System.Diagnostics.Debug.WriteLine(
+                            string.Format(
+                            "Parallel Iteration: '{0}' is running on Thread: '{1}' " +
+                            Environment.NewLine +
+                            "ParallelLoopState '{2}'", Thread.CurrentThread.ManagedThreadId, index, state));
+                    });
+
+            return parallelLoopResult;
+        }
     }
 }
