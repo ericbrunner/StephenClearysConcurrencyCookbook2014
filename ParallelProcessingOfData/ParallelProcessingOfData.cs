@@ -19,7 +19,8 @@ namespace ParallelProcessingOfData
         public static ParallelLoopResult RotateMatrices(IEnumerable<IMatrix> matrices, float degree)
         {
             ParallelLoopResult parallelLoopResult = 
-                Parallel.ForEach(matrices,
+                Parallel.ForEach(
+                    matrices,
                     (matrix, state, index) =>
                     {
                         // simulate a bit of CPU-Bound processing time
@@ -43,7 +44,8 @@ namespace ParallelProcessingOfData
         public static ParallelLoopResult InvertMatrices(IEnumerable<IMatrix> matrices)
         {
             ParallelLoopResult parallelLoopResult =
-                Parallel.ForEach(matrices,
+                Parallel.ForEach(
+                matrices,
                     (matrix, state, index) =>
                     {
                         // simulate a bit of CPU-Bound processing time
@@ -70,7 +72,8 @@ namespace ParallelProcessingOfData
         public static ParallelLoopResult RotateMatrices(IEnumerable<IMatrix> matrices, float degree, CancellationToken token)
         {
             ParallelLoopResult parallelLoopResult =
-                Parallel.ForEach(matrices,
+                Parallel.ForEach(
+                    matrices,
                     new ParallelOptions { CancellationToken = token },
                     (matrix, state, index) =>
                     {
@@ -87,6 +90,46 @@ namespace ParallelProcessingOfData
                     });
 
             return parallelLoopResult;
+        }
+
+        public static int InvertMatricesSharedState(IEnumerable<IMatrix> matrices)
+        {
+            object mutex = new object();
+            int nonInvertableCount = 0;
+
+            ParallelLoopResult parallelLoopResult =
+                Parallel.ForEach(
+                    matrices,
+                    (matrix, state, index) =>
+                    {
+
+                        if (matrix.IsInvertible)
+                        {
+                            matrix.Invert();
+
+                            // simulate a bit of CPU-Bound processing time
+                            Thread.Sleep(200);
+                        }
+                        else
+                        {
+                            lock (mutex)
+                            {
+                                ++nonInvertableCount;
+                            }
+                        }
+                    });
+
+            System.Diagnostics.Debug.WriteLine(
+                string.Format(
+                    "Parallel.ForEach Result:" +
+                    Environment.NewLine + 
+                    "IsCompleted: '{0}'" +
+                    Environment.NewLine +
+                    "LowestBreakIteration: '{1}'", 
+                    parallelLoopResult.IsCompleted, 
+                    parallelLoopResult.LowestBreakIteration));
+
+            return nonInvertableCount;
         }
     }
 }

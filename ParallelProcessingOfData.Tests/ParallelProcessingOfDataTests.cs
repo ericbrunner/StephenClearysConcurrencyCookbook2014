@@ -8,6 +8,9 @@ using ParallelProcessingOfData.Interfaces;
 
 namespace ParallelProcessingOfData.Tests
 {
+    /// <summary>
+    /// Tests class <see cref="ParallelProcessingOfData"/>.
+    /// </summary>
     [TestFixture]
     public class ParallelProcessingOfDataTests
     {
@@ -84,6 +87,10 @@ namespace ParallelProcessingOfData.Tests
             Assert.True(result.IsCompleted, "result.IsCompleted has unexpected value.");
         }
 
+        /// <summary>
+        /// Test that an OperationCanceledException is thrown if the Parallel.ForEach loop
+        /// is cancelled from outside the loop with the provided CancellationToken.
+        /// </summary>
         [Test]
         public void RotateMatrices_AddedCancellationToken_ThrowsOperationCancelledException()
         {
@@ -111,10 +118,9 @@ namespace ParallelProcessingOfData.Tests
                 });
 
             Exception exception = null;
-            ParallelLoopResult result;
             try
             {
-                result = ParallelProcessingOfData.RotateMatrices(matrices, 45f, cts.Token);
+                ParallelProcessingOfData.RotateMatrices(matrices, 45f, cts.Token);
             }
             catch (Exception ex)
             {
@@ -126,6 +132,39 @@ namespace ParallelProcessingOfData.Tests
             // ASSERT
             Assert.NotNull(exception, "exception is null.");
             Assert.IsInstanceOf<OperationCanceledException>(exception, "exception has unexpected type.");
+        }
+
+        /// <summary>
+        /// Inverts the matrices shared state_ added4 non invertible matrices_ returned conut of non invertable matrices.
+        /// </summary>
+        [Test]
+        public void InvertMatricesSharedState_Added4NonInvertibleMatrices_ReturnedConutOfNonInvertableMatrices()
+        {
+            // ARRANGE
+            Mock<IMatrix> matrix;
+            var matrices = new List<IMatrix>();
+
+            for (int i = 0; i < 10000; i++)
+            {
+                matrix = new Mock<IMatrix>();
+
+                if (i % 2 == 0)
+                {
+                    matrix.Setup(context => context.IsInvertible).Returns(true);
+                }
+                else
+                {
+                    matrix.Setup(context => context.IsInvertible).Returns(false);
+                }
+
+                matrices.Add(matrix.Object);
+            }
+
+            // ACT
+            int nonInvertableMatrices = ParallelProcessingOfData.InvertMatricesSharedState(matrices);
+
+            // ASSERT
+            Assert.AreEqual(5000, nonInvertableMatrices, "nonInvertableMatrices has an unexpected value.");
         }
     }
 }
