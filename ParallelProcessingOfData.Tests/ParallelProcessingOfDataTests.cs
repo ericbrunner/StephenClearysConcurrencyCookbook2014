@@ -138,9 +138,10 @@ namespace ParallelProcessingOfData.Tests
         /// Inverts the matrices shared state_ added4 non invertible matrices_ returned conut of non invertable matrices.
         /// </summary>
         [Test]
-        public void InvertMatricesSharedState_Added4NonInvertibleMatrices_ReturnedConutOfNonInvertableMatrices()
+        public void InvertMatricesSharedState_Added4NonInvertibleMatrices_ReturnedCountOfNonInvertableMatrices()
         {
             // ARRANGE
+            const int ExpectedCount = 5000;
             Mock<IMatrix> matrix;
             var matrices = new List<IMatrix>();
 
@@ -164,7 +165,7 @@ namespace ParallelProcessingOfData.Tests
             int nonInvertableMatrices = ParallelProcessingOfData.InvertMatricesSharedState(matrices);
 
             // ASSERT
-            Assert.AreEqual(5000, nonInvertableMatrices, "nonInvertableMatrices has an unexpected value.");
+            Assert.AreEqual(ExpectedCount, nonInvertableMatrices, "nonInvertableMatrices has an unexpected value.");
         }
     }
 }

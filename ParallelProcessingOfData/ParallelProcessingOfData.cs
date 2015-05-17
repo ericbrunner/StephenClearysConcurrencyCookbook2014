@@ -69,6 +69,13 @@ namespace ParallelProcessingOfData
             return parallelLoopResult;
         }
 
+        /// <summary>
+        /// Rotates the matrices.
+        /// </summary>
+        /// <param name="matrices">The matrices.</param>
+        /// <param name="degree">The degree.</param>
+        /// <param name="token">The token.</param>
+        /// <returns></returns>
         public static ParallelLoopResult RotateMatrices(IEnumerable<IMatrix> matrices, float degree, CancellationToken token)
         {
             ParallelLoopResult parallelLoopResult =
@@ -84,14 +91,26 @@ namespace ParallelProcessingOfData
 
                         System.Diagnostics.Debug.WriteLine(
                             string.Format(
-                            "Parallel Iteration: '{0}' is running on Thread: '{1}' " +
-                            Environment.NewLine +
-                            "ParallelLoopState '{2}'", Thread.CurrentThread.ManagedThreadId, index, state));
+                                "Parallel Iteration: '{0}' is running on " +
+                                Environment.NewLine +
+                                "Task: '{1}' in Thread: '{2}'  " +
+                                Environment.NewLine +
+                                "ParallelLoopState '{3}'" +
+                                Environment.NewLine,
+                                index,
+                                Task.CurrentId,
+                                Thread.CurrentThread.ManagedThreadId,
+                                state));
                     });
 
             return parallelLoopResult;
         }
 
+        /// <summary>
+        /// Inverts the state of the matrices shared.
+        /// </summary>
+        /// <param name="matrices">The matrices.</param>
+        /// <returns></returns>
         public static int InvertMatricesSharedState(IEnumerable<IMatrix> matrices)
         {
             object mutex = new object();
@@ -106,9 +125,6 @@ namespace ParallelProcessingOfData
                         if (matrix.IsInvertible)
                         {
                             matrix.Invert();
-
-                            // simulate a bit of CPU-Bound processing time
-                            Thread.Sleep(200);
                         }
                         else
                         {
@@ -122,11 +138,11 @@ namespace ParallelProcessingOfData
             System.Diagnostics.Debug.WriteLine(
                 string.Format(
                     "Parallel.ForEach Result:" +
-                    Environment.NewLine + 
+                    Environment.NewLine +
                     "IsCompleted: '{0}'" +
                     Environment.NewLine +
-                    "LowestBreakIteration: '{1}'", 
-                    parallelLoopResult.IsCompleted, 
+                    "LowestBreakIteration: '{1}'",
+                    parallelLoopResult.IsCompleted,
                     parallelLoopResult.LowestBreakIteration));
 
             return nonInvertableCount;
