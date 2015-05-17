@@ -3,6 +3,9 @@ using NUnit.Framework;
 
 namespace ParallelAggregation.Tests
 {
+    /// <summary>
+    /// Tests class <see cref="ParallelAggregation"/>.
+    /// </summary>
     [TestFixture]
     public class ParallelAggregationTests
     {
